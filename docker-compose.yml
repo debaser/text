@@ -1,0 +1,23 @@
+services:
+  text:
+    build: .
+    container_name: text
+    restart: unless-stopped
+    ports:
+      - "8086:8000"
+    volumes:
+      - text_data:/app/data
+    networks:
+      - shared-net
+    environment:
+      - GOOGLE_TRANSLATE_API_KEY=${GOOGLE_TRANSLATE_API_KEY:-}
+      - TEXT_PROXY_URL=${TEXT_PROXY_URL:-}
+      - TEXT_PROXY_KEY=${TEXT_PROXY_KEY:-}
+
+networks:
+  shared-net:
+    external: true
+
+volumes:
+  text_data:
+    external: true

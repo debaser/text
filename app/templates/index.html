@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Texto del día · tailandés y tagalo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="El texto del día en tailandés y tagalo con la traducción al español frase a frase, y el texto oficial en español.">
+
+    <meta name="theme-color" content="#fbf9f5" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#16141a" media="(prefers-color-scheme: dark)">
+    <meta name="color-scheme" content="light dark">
+
+    <link rel="manifest" href="/static/manifest.webmanifest?v={{ v }}">
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/static/favicon-32.png" sizes="32x32" type="image/png">
+    <link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Texto del día">
+
+    <link rel="preload" href="/static/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/static/vendor/tippy.css">
+    <link rel="stylesheet" href="/static/main.css?v={{ v }}">
+</head>
+<body>
+    <main id="app" class="app{% if not prerendered %} is-loading{% endif %}">
+        <div id="content" class="content">
+            {% if prerendered %}{% include "_content.html" %}{% endif %}
+        </div>
+
+        <div class="skeleton" aria-hidden="true">
+            <span class="skeleton__kicker"></span>
+            <span class="skeleton__line skeleton__line--lg"></span>
+            <span class="skeleton__line skeleton__line--lg"></span>
+            <span class="skeleton__line"></span>
+            <span class="skeleton__line"></span>
+            <span class="skeleton__line"></span>
+            <span class="skeleton__line skeleton__line--sm"></span>
+            <p class="skeleton__status"></p>
+        </div>
+    </main>
+
+    <nav class="pager" aria-label="Navegar por días">
+        <a class="pager__btn" data-nav="prev" href="/?date={{ prev_date }}" rel="prev" aria-label="Día anterior">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </a>
+        <button type="button" class="pager__btn pager__play" data-playall hidden aria-label="Escuchar todo el texto">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg>
+        </button>
+        <button type="button" class="pager__rate" data-rate hidden aria-label="Velocidad de lectura">0.8×</button>
+        <a class="pager__today" data-nav="today" href="/" hidden>Hoy</a>
+        <a class="pager__btn" data-nav="next" href="/?date={{ next_date }}" rel="next" aria-label="Día siguiente">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </a>
+        <span class="pager__progress" hidden aria-hidden="true"><span></span></span>
+    </nav>
+
+    <button type="button" class="fab-share" hidden aria-label="Compartir">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v13M12 3L8 7M12 3l4 4M5 13v6a2 2 0 002 2h10a2 2 0 002-2v-6"/></svg>
+    </button>
+
+    <div class="hint" hidden role="status">Toca cualquier frase para ver su traducción</div>
+
+    <dialog class="words" aria-labelledby="words-sentence">
+        <header class="words__head">
+            <p class="words__sentence" id="words-sentence"></p>
+            <button type="button" class="tip__btn words__play" data-play aria-label="Escuchar">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg>
+            </button>
+            <button type="button" class="words__close" data-words-close aria-label="Cerrar">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+        </header>
+        <p class="words__es"></p>
+        <p class="words__hint">Toca una palabra para escucharla</p>
+        <ol class="words__list"></ol>
+        <p class="words__status" role="status"></p>
+        <nav class="words__nav" aria-label="Frases">
+            <button type="button" class="words__navbtn" data-words-prev>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span>Anterior</span>
+            </button>
+            <span class="words__pos"></span>
+            <button type="button" class="words__navbtn" data-words-next>
+                <span>Siguiente</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+            </button>
+        </nav>
+    </dialog>
+
+    <script>
+        window.__TEXT__ = {
+            initialDate: "{{ date_str }}",
+            today: "{{ today }}",
+            prerendered: {{ 'true' if prerendered else 'false' }},
+            ver: "{{ v }}"
+        };
+    </script>
+    <script src="/static/vendor/popper.min.js"></script>
+    <script src="/static/vendor/tippy-bundle.umd.min.js"></script>
+    <script src="/static/app.js?v={{ v }}" defer></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "Texto del día — tailandés y tagalo",
+  "short_name": "Texto del día",
+  "description": "El texto del día en tailandés y tagalo con la traducción al español frase a frase, y el texto oficial en español.",
+  "lang": "es",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fbf9f5",
+  "theme_color": "#fbf9f5",
+  "categories": ["books", "education", "lifestyle"],
+  "icons": [
+    { "src": "/static/favicon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/static/favicon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/static/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

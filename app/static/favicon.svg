@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- text: open book + translation bubble (app accent #5E3A87) -->
+  <rect width="64" height="64" rx="14" fill="#5E3A87"/>
+  <g>
+    <rect x="18" y="9" width="28" height="15" rx="4.5" fill="#EFE9F4"/>
+    <path d="M28.5 23.5h7L32 27.5z" fill="#EFE9F4"/>
+    <rect x="22.5" y="13.5" width="19" height="2.4" rx="1.2" fill="#5E3A87"/>
+    <rect x="22.5" y="18" width="12" height="2.4" rx="1.2" fill="#5E3A87" opacity=".55"/>
+    <path d="M32 33.5c-4.6-2.7-10.6-3.4-16.5-2.6v18c5.9-.8 11.9-.1 16.5 2.6z" fill="#FBF9F5"/>
+    <path d="M32 33.5c4.6-2.7 10.6-3.4 16.5-2.6v18c-5.9-.8-11.9-.1-16.5 2.6z" fill="#FBF9F5" opacity=".88"/>
+  </g>
+</svg>

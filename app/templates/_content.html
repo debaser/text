@@ -1,0 +1,55 @@
+{% if error %}
+<div class="state">
+    <p class="state__msg">No se pudo cargar el texto de este día.</p>
+    <button type="button" class="state__retry" data-retry>Reintentar</button>
+</div>
+{% else %}
+{%- set langs = [("th", th), ("tl", tl)] -%}
+<article class="daily" data-date="{{ date_str }}" data-lang="{{ default_lang }}" data-default-lang="{{ default_lang }}">
+    {% for code, v in langs if v and not v.translated %}
+    <p class="banner" data-v="{{ code }}">Traducción no disponible por ahora — mostrando solo el texto original.</p>
+    {% endfor %}
+    <header class="daily__head">
+        <p class="kicker">
+            {%- for code, v in langs if v %}
+            <span class="tl" lang="{{ code }}" data-v="{{ code }}" data-tip="{{ v.date_es }}">{{ v.date|zw }}</span>
+            {%- endfor %}
+            {%- if es %}<span lang="es" data-v="es">{{ es.date }}</span>{% endif %}
+        </p>
+        <div class="daily__tools">
+        {%- if th %}
+        <button type="button" class="space-toggle" data-v="th" data-spaces-toggle aria-pressed="false"
+                title="Mostrar la separación entre palabras" aria-label="Mostrar la separación entre palabras">ก·ข</button>
+        {%- endif %}
+        <div class="lang-switch" role="group" aria-label="Idioma">
+            {%- for code, label, name in [("th", "TH", "tailandés"), ("tl", "TL", "tagalo"), ("es", "ES", "español")] %}
+            {%- if (code == "th" and th) or (code == "tl" and tl) or (code == "es" and es) %}
+            <button type="button" class="lang-switch__btn" data-lang-btn="{{ code }}"
+                    aria-pressed="{{ 'true' if code == default_lang else 'false' }}" title="Ver en {{ name }}">{{ label }}</button>
+            {%- endif %}
+            {%- endfor %}
+        </div>
+        </div>
+    </header>
+    {% for code, v in langs if v %}
+    <h1 class="theme" lang="{{ code }}" data-v="{{ code }}">
+        <span class="tl" data-i="-1" data-tip="{{ v.text_es }}">{{ v.text|zw }}</span>
+    </h1>
+    <div class="comment" lang="{{ code }}" data-v="{{ code }}">
+        {%- for tok in v.tokens -%}
+        {%- if tok.t == "s" -%}
+        <span class="s" tabindex="0" role="button" aria-label="Ver traducción" data-i="{{ loop.index0 }}" data-tip="{{ tok.es }}">{{ tok.tl|zw }}</span>
+        {%- else -%}
+        <span class="ref">{{ tok.tl }}</span>
+        {%- endif -%}
+        {{ " " }}
+        {%- endfor -%}
+    </div>
+    {% endfor %}
+    {% if es %}
+    <h1 class="theme" lang="es" data-v="es">{{ es.text }}</h1>
+    <div class="comment" lang="es" data-v="es">{{ es.comment }}</div>
+    {% endif %}
+    <p class="hits" title="Veces visto">~{{ hits }}</p>
+</article>
+{% endif %}
